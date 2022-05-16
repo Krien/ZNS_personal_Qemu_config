@@ -11,6 +11,7 @@ smp=4           # SMP
 
 # used for debugging non-zns 
 smallnvme="nvmessd-32M.img"
+nvme_blocksize=4096
 # small IO (should be similar sized disks for benchmarking)
 smallzns="znsssd-128M.img"
 smallzns2="znsssd2-128M.img"
@@ -53,6 +54,8 @@ zns_uuid=5e40ec5f-eeb6-4317-bc5e-c919796a5f79
 # I thought we were going to write Bash?
 # This was mainly done to reduce column width as Qemu's opts are "," separated, so "\" will not work.
 # If we want we can make this shorter with double evaluation, but not sure if this destroys readability.
+nvme_opts="physical_block_size=$nvme_blocksize,logical_block_size=$nvme_blocksize"
+
 zns_opts="uuid=${zns_uuid},zoned=true"
 
 small_ctrl_opts="mdts=${smallzns_mdts},zoned.zasl=${smallzns_zasl},max_ioqpairs=${smallzns_max_ioqpairs}"
@@ -71,14 +74,15 @@ alt_opts="${alt_opts},zoned.zone_size=${altzns_zonesize},zoned.zone_capacity=${a
 alt_opts="${alt_opts},zoned.max_open=${altzns_max_open},zoned.max_active=${altzns_max_active}"
 
 # launch setup
-$qemu -name qemuzns \
---enable-kvm \
--vnc :0 \
--m "$memory" -cpu host -smp "$smp" \
--hda "$image" \
--net user,hostfwd=tcp::7777-:22 -net nic \
--drive file="$smallnvme",id=nvme-device,format=raw,if=none \
--device nvme,drive=nvme-device,serial=nvme-dev,physical_block_size=4096,logical_block_size=4096 \
+$qemu -name qemuzns                                             \
+--enable-kvm                                                    \
+-vnc :0                                                         \
+-m "$memory" -cpu host -smp "$smp"                              \
+-hda "$image"                                                   \
+-net user,hostfwd=tcp::"$port_local"-:"$port_image" -net nic    \
+\
+-drive file="$smallnvme",id=nvme-device,format=raw,if=none    \
+-device "nvme,drive=nvme-device,serial=nvme-dev,${nvme_opts}" \
 \
 -drive file="$smallzns",id=zns-device1,format=raw,if=none     \
 -drive file="$smallzns2",id=zns-device2,format=raw,if=none    \
