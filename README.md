@@ -5,7 +5,9 @@ The project requires Qemu to be installed and available in the path. It has only
 
 ## How to use
 This projects comes with two scripts: `./create_images.sh` and `./start_qemu_zns.sh`.
-To explain the scripts: `./create_images.sh` creates the storage device images (I am not going to share raw images on Github...) and `./start_qemu_zns.sh` starts Qemu to make use of the created images. Note that these scripts only creates the storage devices, you do still need your own qcow image, such as Ubuntu. This image is probably different from mine, so alter `image` in  `./start_qemu_zns.sh` to your own.
+To explain the scripts: `./create_images.sh` creates the storage device images (I am not going to share raw images on Github...) and `./start_qemu_zns.sh` starts Qemu to make use of the created images. Note that these scripts only creates the storage devices, you do still need your own qcow image, such as Ubuntu. Your image is probably different from mine, so alter the variable `image` in  `./start_qemu_zns.sh` to your own.
+
+After the image is launched, you should connect through SSH to the qcow image. This depends entirely on what ports you have specified for your image (I hope you have...), by default I have set it to 7777 and 22. Please alter `./start_qemu_zns.sh` to achieve this. If you have succesfully connected, the devices should be available in `/dev/...` on the image.
 
 WARNING, running `./create_images.sh` will eat more than 20 GB.
 

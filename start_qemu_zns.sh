@@ -1,14 +1,14 @@
 #!/bin/sh
-qemu=qemu-system-x86_64
+qemu=qemu-system-x86_64 # << set to your Qemu installation!
+
+image="ubuntu-20.04.qcow" # Set to your image!!!
 
 # config
-port_local=7777
-port_image=22
-memory=12G
-smp=4
+port_local=7777 # < Set to your desired port
+port_image=22   # < Set to the exposed port on the image
+memory=12G      # RAM
+smp=4           # SMP
 
-# Set to your image
-image="ubuntu-20.04.qcow"
 # used for debugging non-zns 
 smallnvme="nvmessd-32M.img"
 # small IO (should be similar sized disks for benchmarking)
