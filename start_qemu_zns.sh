@@ -73,6 +73,7 @@ alt_opts="${alt_opts},zoned.max_open=${altzns_max_open},zoned.max_active=${altzn
 # launch setup
 $qemu -name qemuzns \
 --enable-kvm \
+-vnc :0 \
 -m "$memory" -cpu host -smp "$smp" \
 -hda "$image" \
 -net user,hostfwd=tcp::7777-:22 -net nic \
