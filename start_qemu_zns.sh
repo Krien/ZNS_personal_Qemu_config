@@ -12,6 +12,8 @@ smp=4           # SMP
 # used for debugging non-zns 
 smallnvme="nvmessd-32M.img"
 nvme_blocksize=4096
+# used for hybrid approaches (e.g. F2FS)
+bignvme="nvmessd-4G.img"
 # small IO (should be similar sized disks for benchmarking)
 smallzns="znsssd-128M.img"
 smallzns2="znsssd2-128M.img"
@@ -19,8 +21,8 @@ smallzns_logical_blocksize=4096
 smallzns_physical_blocksize=4096
 smallzns_zonesize=2M
 smallzns_zonecap=1M
-smallzns_max_open=0
-smallzns_max_active=0
+smallzns_max_open=16
+smallzns_max_active=32
 smallzns_mdts=8
 smallzns_zasl=5
 smallzns_max_ioqpairs=64
@@ -31,8 +33,8 @@ biggerzns_logical_blocksize=4096
 biggerzns_physical_blocksize=4096
 biggerzns_zonesize=2M
 biggerzns_zonecap=1M
-biggerzns_max_open=0
-biggerzns_max_active=0
+biggerzns_max_open=16
+biggerzns_max_active=32
 biggerzns_mdts=8
 biggerzns_zasl=5
 biggerzns_max_ioqpairs=64
@@ -43,8 +45,8 @@ altzns_logical_blocksize=512
 altzns_physical_blocksize=512
 altzns_zonesize=3M
 altzns_zonecap=2M
-altzns_max_open=0
-altzns_max_active=0
+altzns_max_open=16
+altzns_max_active=32
 altzns_zasl=0
 altzns_mdts=9
 altzns_max_ioqpairs=32
@@ -83,6 +85,9 @@ $qemu -name qemuzns                                             \
 \
 -drive file="$smallnvme",id=nvme-device,format=raw,if=none    \
 -device "nvme,drive=nvme-device,serial=nvme-dev,${nvme_opts}" \
+\
+-drive file="$bignvme",id=nvme-device2,format=raw,if=none       \
+-device "nvme,drive=nvme-device2,serial=nvme-dev2,${nvme_opts}" \
 \
 -drive file="$smallzns",id=zns-device1,format=raw,if=none     \
 -drive file="$smallzns2",id=zns-device2,format=raw,if=none    \

@@ -6,6 +6,9 @@ qemuimg=qemu-img
 if [ ! -f nvmessd-32M.img ]; then
     $qemuimg create -f raw nvmessd-32M.img 32M
 fi
+if [ ! -f nvmessd-4G.img ]; then
+    $qemuimg create -f raw nvmessd-4G.img 4G
+fi
 if [ ! -f znsssd-128M.img ]; then
     $qemuimg create -f raw znsssd-128M.img 128M
 fi
