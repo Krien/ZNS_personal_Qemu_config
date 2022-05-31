@@ -43,12 +43,12 @@ altzns="znsssd5-1G.img"
 altzns2="znsssd6-1G.img"
 altzns_logical_blocksize=512
 altzns_physical_blocksize=512
-altzns_zonesize=3M
+altzns_zonesize=4M
 altzns_zonecap=2M
 altzns_max_open=16
 altzns_max_active=32
-altzns_zasl=0
 altzns_mdts=9
+altzns_zasl=0
 altzns_max_ioqpairs=32
 # taken from https://zonedstorage.io/docs/tools/qemu, better not alter...
 zns_uuid=5e40ec5f-eeb6-4317-bc5e-c919796a5f79
@@ -70,7 +70,7 @@ bigger_opts="logical_block_size=${biggerzns_logical_blocksize},physical_block_si
 bigger_opts="${bigger_opts},zoned.zone_size=${biggerzns_zonesize},zoned.zone_capacity=${biggerzns_zonecap}"
 bigger_opts="${bigger_opts},zoned.max_open=${biggerzns_max_open},zoned.max_active=${biggerzns_max_active}"
 
-alt_ctrl_opts="mdts=${smallzns_mdts},zoned.zasl=${altzns_zasl},max_ioqpairs=${altzns_max_ioqpairs}"
+alt_ctrl_opts="mdts=${altzns_mdts},zoned.zasl=${altzns_zasl},max_ioqpairs=${altzns_max_ioqpairs}"
 alt_opts="logical_block_size=${altzns_logical_blocksize},physical_block_size=${altzns_physical_blocksize}"
 alt_opts="${alt_opts},zoned.zone_size=${altzns_zonesize},zoned.zone_capacity=${altzns_zonecap}"
 alt_opts="${alt_opts},zoned.max_open=${altzns_max_open},zoned.max_active=${altzns_max_active}"
