@@ -11,7 +11,7 @@ smp=4           # SMP
 
 # used for debugging non-zns 
 smallnvme="nvmessd-32M.img"
-nvme_blocksize=4096
+nvme_blocksize=512
 # used for hybrid approaches (e.g. F2FS)
 bignvme="nvmessd-4G.img"
 # small IO (should be similar sized disks for benchmarking)
@@ -29,8 +29,8 @@ smallzns_max_ioqpairs=64
 # bigger IO (should be similar sized disks for benchmarking)
 biggerzns="znsssd3-8G.img"
 biggerzns2="znsssd4-8G.img"
-biggerzns_logical_blocksize=4096
-biggerzns_physical_blocksize=4096
+biggerzns_logical_blocksize=512
+biggerzns_physical_blocksize=512
 biggerzns_zonesize=2M
 biggerzns_zonecap=1M
 biggerzns_max_open=16
